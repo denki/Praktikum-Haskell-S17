@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-11 Di 16:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Praktikum Haskell – Einführungsveranstaltung (2017-04-11)</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Praktikum Haskell – Einführungsveranstaltung (2017-04-11)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org5485377">1. Organisatorisches</a>
+<ul>
+<li><a href="#org7dfc9ec">1.1. Module</a></li>
+<li><a href="#org2384426">1.2. Timetable</a></li>
+</ul>
+</li>
+<li><a href="#orgafcea9e">2. Grundlagen</a>
+<ul>
+<li><a href="#org30d9430">2.1. technische Grundlagen</a></li>
+<li><a href="#org2f30ae4">2.2. Programme</a></li>
+</ul>
+</li>
+<li><a href="#org21ea802">3. Leseauftrag</a></li>
+<li><a href="#org91bc67a">4. Literatur</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5485377" class="outline-2">
+<h2 id="org5485377"><span class="section-number-2">1</span> Organisatorisches</h2>
+<div class="outline-text-2" id="text-1">
+<dl class="org-dl">
+<dt>Website</dt><dd><a href="https://www.inf.tu-dresden.de/index.php?node_id=3777">https://www.inf.tu-dresden.de/index.php?node_id=3777</a></dd>
+</dl>
+</div>
+<div id="outline-container-org7dfc9ec" class="outline-3">
+<h3 id="org7dfc9ec"><span class="section-number-3">1.1</span> Module</h3>
+<div class="outline-text-3" id="text-1-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Modul</th>
+<th scope="col" class="org-left">Studiengang</th>
+<th scope="col" class="org-left">Prüfung</th>
+<th scope="col" class="org-right">SWS</th>
+<th scope="col" class="org-left">Name der Lehrveranstaltung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">INF-B-510</td>
+<td class="org-left">Bachelor</td>
+<td class="org-left">Prüfung (mündlich)</td>
+<td class="org-right">4</td>
+<td class="org-left">Praktikum Verarbeitung natürlicher Sprachen</td>
+</tr>
+
+<tr>
+<td class="org-left">INF-B-520</td>
+<td class="org-left">Bachelor</td>
+<td class="org-left">Prüfung (mündlich)</td>
+<td class="org-right">4</td>
+<td class="org-left">Praktikum Verarbeitung natürlicher Sprachen</td>
+</tr>
+
+<tr>
+<td class="org-left">INF-D-940</td>
+<td class="org-left">Diplom</td>
+<td class="org-left">Prüfung (mündlich)</td>
+<td class="org-right">4</td>
+<td class="org-left">Praktikum Verarbeitung natürlicher Sprachen</td>
+</tr>
+
+<tr>
+<td class="org-left">INF-MA-PR</td>
+<td class="org-left">Master</td>
+<td class="org-left">Kolloquium</td>
+<td class="org-right">4</td>
+<td class="org-left">Praktikum Verarbeitung natürlicher Sprachen</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">INF-PM-FPG</td>
+<td class="org-left">Master/Diplom</td>
+<td class="org-left">Kolloquium</td>
+<td class="org-right">8</td>
+<td class="org-left">Forschungsprojekt Verarbeitung natürlicher Sprachen</td>
+</tr>
+
+<tr>
+<td class="org-left">INF-MA-PR</td>
+<td class="org-left">Master</td>
+<td class="org-left">Kolloquium</td>
+<td class="org-right">8</td>
+<td class="org-left">Master-Praktikum Verarbeitung natürlicher Sprachen</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org2384426" class="outline-3">
+<h3 id="org2384426"><span class="section-number-3">1.2</span> Timetable</h3>
+<div class="outline-text-3" id="text-1-2">
+<dl class="org-dl">
+<dt>Teil I</dt><dd>Vorbereitung für selbstständige Lösung der Abschlussaufgabe
+<ul class="org-ul">
+<li>2017-04-11:  Einführungsveranstaltung (Organisatorisches, ghc, ghci)</li>
+<li>2017-04-18:  Tutorium 1 (Grundlagen, Typen, Rekursion)</li>
+<li>2017-05-02:  Tutorium 2 (einfache Typklassen, Kinds, Lazy Evaluation)</li>
+<li>2017-05-16:  Tutorium 3 (Monaden)</li>
+<li>2017-05-23:  Tutorium 4 (Profiling, Coding Style, Modules), Erteilen der Abschlussaufgabe</li>
+</ul></dd>
+<dt>Teil II</dt><dd>selbstständige Lösung der Abschlussaufgabe
+<ul class="org-ul">
+<li>individuelle Codeinspektion (26. Kalenderwoche)</li>
+<li>Abschlussveranstaltung (28. Kalenderwoche)</li>
+</ul></dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgafcea9e" class="outline-2">
+<h2 id="orgafcea9e"><span class="section-number-2">2</span> Grundlagen</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-org30d9430" class="outline-3">
+<h3 id="org30d9430"><span class="section-number-3">2.1</span> technische Grundlagen</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Computer mit <i>Haskell-Compiler</i> (z.B. ghc), <i>cabal</i>, <i>Terminal</i> (z.B. xterm) und <i>Editor</i> (z.B. emacs)
+</p>
+<dl class="org-dl">
+<dt>Installation</dt><dd><ul class="org-ul">
+<li>unter Linux:  obige Pakete mir dem Paketmanager installieren</li>
+<li>unter Windows oder Mac:  siehe <a href="https://www.haskell.org/platform/">https://www.haskell.org/platform/</a> (<b>viel Glück!</b>)</li>
+</ul></dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-org2f30ae4" class="outline-3">
+<h3 id="org2f30ae4"><span class="section-number-3">2.2</span> Programme</h3>
+<div class="outline-text-3" id="text-2-2">
+<dl class="org-dl">
+<dt>ghci </dt><dd>interactiver Haskell-Interpreter
+<dl class="org-dl">
+<dt>:h       </dt><dd>Hilfe anzeigen</dd>
+<dt>:t &lt;exp&gt; </dt><dd>Typ des Ausdrucks &lt;exp&gt; zeigen</dd>
+<dt>:i &lt;func&gt;</dt><dd>Informationen zu der Funktion &lt;func&gt; anzeigen</dd>
+</dl></dd>
+<dt>ghc  </dt><dd>Glasgow Haskell-Compiler</dd>
+<dt>cabal</dt><dd>Paketmanager (zur Installation von Programmen und Bibliotheken)
+<dl class="org-dl">
+<dt>cabal init                       </dt><dd>initialisiert ein neues Haskell-Projekt (<i>mit</i> „informative comments“)</dd>
+<dt>cabal configure                  </dt><dd>konfiguriert die build-Umgebung</dd>
+<dt>cabal build                      </dt><dd>kompiliert das Projekt</dd>
+<dt>cabal run                        </dt><dd>kompiliert das Projekt und startet die Executable</dd>
+<dt>cabal sandbox init               </dt><dd>erstellt eine Sandbox im aktuellen Ordner</dd>
+<dt>cabal update                     </dt><dd>updated die Paketliste</dd>
+<dt>cabal install &lt;packages&gt;         </dt><dd>installiert die Pakete &lt;packages&gt;</dd>
+<dt>cabal install &#x2013;only-dependencies</dt><dd>installiert Dependencies des aktuellen Projekts</dd>
+</dl></dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org21ea802" class="outline-2">
+<h2 id="org21ea802"><span class="section-number-2">3</span> Leseauftrag</h2>
+<div class="outline-text-2" id="text-3">
+<dl class="org-dl">
+<dt>Literatur</dt><dd>[LYaH12, Kap. 1–4], [PHfNLP15, Folien I/1–55]</dd>
+<dt>Aufgaben </dt><dd>[PHfNLP15, Folien I/30, I/33, I/35, I/37, I/45–46, I/53)]</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org91bc67a" class="outline-2">
+<h2 id="org91bc67a"><span class="section-number-2">4</span> Literatur</h2>
+<div class="outline-text-2" id="text-4">
+<dl class="org-dl">
+<dt>[LYaH12]  </dt><dd>Miran Lipovača: Learn You a Haskell for Great Good, 2012, <a href="http://learnyouahaskell.com/">http://learnyouahaskell.com/</a>.</dd>
+<dt>[PHfNLP15]</dt><dd>Toni Dietze: Praktikum Haskell für NLP, Foliensatz, 2015.</dd>
+</dl>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2017-04-11 Di 16:28</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

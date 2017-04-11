@@ -1,0 +1,27 @@
+:set +c
+
+-- use a colorful prompt
+:set prompt "\001\ESC[93m\002%s \001\ESC[34;1m\002λ\001\ESC[0m\002 "
+
+-- enable useful warnings
+
+-- https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/options-sanity.html
+:set -Wall
+:set -fno-warn-type-defaults
+:set -fwarn-tabs
+:set -fwarn-incomplete-uni-patterns
+:set -fwarn-incomplete-record-updates
+
+
+-- set up shortcuts for hoogle searches
+:{
+let shellEscape
+      = ('\'' :)
+      . (++ "'")
+      . concatMap (\ c -> case c of
+                            '\'' -> "'\\''"
+                            _    -> [c]
+                  )
+:}
+:def ho  \x -> return $ ":!hoogle search --color -- " ++ shellEscape x ++ " | more -5 -f"
+:def doc \x -> return $ ":!hoogle search --color --info -- " ++ shellEscape x
