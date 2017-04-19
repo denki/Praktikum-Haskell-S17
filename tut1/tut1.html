@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-19 Mi 08:21 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Praktikum Haskell – Tutorium 1 (2017-04-18)</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Praktikum Haskell – Tutorium 1 (2017-04-18)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org8111bb4">1. Aufgabe 1 (Folie I/30)</a>
+<ul>
+<li><a href="#org3421c9e">1.1. Lösung (exponentiell)</a></li>
+<li><a href="#org63ec25b">1.2. Lösung (linear)</a></li>
+</ul>
+</li>
+<li><a href="#org5a6b785">2. Aufgabe 2 (Folie I/33)</a>
+<ul>
+<li><a href="#org3785e41">2.1. Aufgabe 2.1</a></li>
+<li><a href="#orgf7649b4">2.2. Aufgabe 2.2</a></li>
+</ul>
+</li>
+<li><a href="#org3f8de42">3. Aufgabe 3 (Folie I/35)</a>
+<ul>
+<li><a href="#org650a568">3.1. Aufgabe 3.1</a></li>
+<li><a href="#orgfbfd405">3.2. Aufgabe 3.2 (geändert gegenüber der Folien)</a></li>
+</ul>
+</li>
+<li><a href="#org45e219f">4. Aufgabe 4 (Folie I/37)</a></li>
+<li><a href="#org88f516b">5. Aufgabe 5 (Folie I/45–46)</a>
+<ul>
+<li><a href="#org151e0e7">5.1. Aufgabe 5.1 (Folie I/45)</a></li>
+<li><a href="#org2099bd9">5.2. Aufgabe 5.2 (Folie I/46)</a></li>
+<li><a href="#org1e96f7b">5.3. Lösung (mit Prelude)</a></li>
+<li><a href="#orgedb20be">5.4. Lösung (ohne Memory-Leak)</a></li>
+</ul>
+</li>
+<li><a href="#orga56b655">6. Aufgabe 6 (Folie I/53)</a></li>
+<li><a href="#orgb00db50">7. Leseauftrag</a></li>
+<li><a href="#org6d1ac33">8. Literatur</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8111bb4" class="outline-2">
+<h2 id="org8111bb4"><span class="section-number-2">1</span> Aufgabe 1 (Folie I/30)</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Programmieren Sie die Funktion fib, welche ein gewünschtes
+Element der Fibonacci-Folge zurück gibt. Die Laufzeit der Funktion
+soll in O(n) liegen, wobei n der eingegebene Wert ist.
+</p>
+
+<p>
+fib: ℕ → ℕ,
+fib(n) = n,  wenn n ≤ 1; und
+fib(n) = fib(n − 2) + fib(n − 1),  wenn n ≥ 2.
+</p>
+</div>
+
+<div id="outline-container-org3421c9e" class="outline-3">
+<h3 id="org3421c9e"><span class="section-number-3">1.1</span> Lösung (exponentiell)</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Code:
+</p>
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">fib</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">fib</span> <span style="color: #6c71c4;">0</span> <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">0</span>
+<span style="color: #268bd2;">fib</span> <span style="color: #6c71c4;">1</span> <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">1</span>
+<span style="color: #268bd2;">fib</span> n <span style="color: #268bd2;">=</span> fib <span style="color: #2aa198;">(</span>n <span style="color: #268bd2;">-</span> <span style="color: #6c71c4;">2</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">+</span> fib <span style="color: #2aa198;">(</span>n <span style="color: #268bd2;">-</span> <span style="color: #6c71c4;">1</span><span style="color: #2aa198;">)</span>
+</pre>
+</div>
+
+<p>
+Aufruf:
+</p>
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">map</span> fib <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">0</span> <span style="color: #268bd2;">..</span> <span style="color: #6c71c4;">10</span><span style="color: #2aa198;">]</span>
+</pre>
+</div>
+
+<pre class="example">
+[0,1,1,2,3,5,8,13,21,34,55]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org63ec25b" class="outline-3">
+<h3 id="org63ec25b"><span class="section-number-3">1.2</span> Lösung (linear)</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">fib</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">fib</span> <span style="color: #268bd2;">=</span> fib' <span style="color: #6c71c4;">0</span> <span style="color: #6c71c4;">1</span>
+
+<span style="color: #268bd2;">fib'</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">fib'</span> x <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #6c71c4;">0</span> <span style="color: #268bd2;">=</span> x
+<span style="color: #268bd2;">fib'</span> x y n <span style="color: #268bd2;">=</span> fib' y <span style="color: #2aa198;">(</span>x <span style="color: #268bd2;">+</span> y<span style="color: #2aa198;">)</span> <span style="color: #2aa198;">(</span>n <span style="color: #268bd2;">-</span> <span style="color: #6c71c4;">1</span><span style="color: #2aa198;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">map</span> fib <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">0</span> <span style="color: #268bd2;">..</span> <span style="color: #6c71c4;">10</span><span style="color: #2aa198;">]</span>
+</pre>
+</div>
+
+<pre class="example">
+[0,1,1,2,3,5,8,13,21,34,55]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5a6b785" class="outline-2">
+<h2 id="org5a6b785"><span class="section-number-2">2</span> Aufgabe 2 (Folie I/33)</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-org3785e41" class="outline-3">
+<h3 id="org3785e41"><span class="section-number-3">2.1</span> Aufgabe 2.1</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Programmieren Sie die Funktion <code>myReverseInt</code>, die die
+Reihenfolge der Elemente einer <code>Int</code>-Liste umkehrt. Die Laufzeit
+der Funktion soll in O(n) liegen, wobei n die Länge der
+Eingabeliste ist.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myReverseInt</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">Int</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">Int</span><span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">myReverseInt</span> <span style="color: #268bd2;">=</span> h <span style="color: #2aa198;">[]</span> <span style="color: #859900; font-weight: bold;">where</span>
+  h xs <span style="color: #2aa198;">[]</span>     <span style="color: #268bd2;">=</span> xs
+  h xs <span style="color: #2aa198;">(</span>y<span style="color: #b58900;">:</span>ys<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> h <span style="color: #2aa198;">(</span>y<span style="color: #b58900;">:</span>xs<span style="color: #2aa198;">)</span> ys
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myReverseInt</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span> <span style="color: #268bd2;">..</span> <span style="color: #6c71c4;">5</span><span style="color: #2aa198;">]</span>
+</pre>
+</div>
+
+<pre class="example">
+[5,4,3,2,1]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgf7649b4" class="outline-3">
+<h3 id="orgf7649b4"><span class="section-number-3">2.2</span> Aufgabe 2.2</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Programmieren Sie die Funktion <code>myZipInt</code>, welche zwei
+<code>Int</code>-Listen zu einer Liste von Paaren zusammenführt, wobei der
+Überhang der längeren Liste verworfen wird, z. B.:
+<code>myZipInt [1, 2, 3] [4, 5] = [(1, 4), (2, 5)]</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myZipInt</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">Int</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">Int</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">(</span><span style="color: #b58900;">Int</span>, <span style="color: #b58900;">Int</span><span style="color: #b58900;">)</span><span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">myZipInt</span> <span style="color: #2aa198;">[]</span> <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[]</span>
+<span style="color: #268bd2;">myZipInt</span> <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #2aa198;">[]</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[]</span>
+<span style="color: #268bd2;">myZipInt</span> <span style="color: #2aa198;">(</span>x<span style="color: #b58900;">:</span>xs<span style="color: #2aa198;">)</span> <span style="color: #2aa198;">(</span>y<span style="color: #b58900;">:</span>ys<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">(</span>x, y<span style="color: #2aa198;">)</span> <span style="color: #b58900;">:</span> myZipInt xs ys
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myZipInt</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span>, <span style="color: #6c71c4;">2</span>, <span style="color: #6c71c4;">3</span><span style="color: #2aa198;">]</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">4</span>, <span style="color: #6c71c4;">5</span><span style="color: #2aa198;">]</span>
+</pre>
+</div>
+
+<pre class="example">
+[(1,4),(2,5)]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3f8de42" class="outline-2">
+<h2 id="org3f8de42"><span class="section-number-2">3</span> Aufgabe 3 (Folie I/35)</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-org650a568" class="outline-3">
+<h3 id="org650a568"><span class="section-number-3">3.1</span> Aufgabe 3.1</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Schreiben Sie die Funktion <code>myMapInt</code>, welche eine als Argument
+übergebene Funktion auf alle Elemente einer ebenfalls
+übergebenen <code>Int</code>-Liste anwendet.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myMapInt</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">Int</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">Int</span><span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">myMapInt</span> f <span style="color: #2aa198;">[]</span>     <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[]</span>
+<span style="color: #268bd2;">myMapInt</span> f <span style="color: #2aa198;">(</span>x<span style="color: #b58900;">:</span>xs<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> f x <span style="color: #b58900;">:</span> myMapInt f xs
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myMapInt</span> <span style="color: #2aa198;">(</span><span style="color: #6c71c4;">2</span> <span style="color: #268bd2;">*</span><span style="color: #2aa198;">)</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span> <span style="color: #268bd2;">..</span> <span style="color: #6c71c4;">10</span><span style="color: #2aa198;">]</span>
+</pre>
+</div>
+
+<pre class="example">
+[2,4,6,8,10,12,14,16,18,20]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgfbfd405" class="outline-3">
+<h3 id="orgfbfd405"><span class="section-number-3">3.2</span> Aufgabe 3.2 (geändert gegenüber der Folien)</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Schreiben Sie die Funktion <code>myZipWith</code>, welche zwei
+Listen mit Hilfe einer übergebenen zweistelligen Funktion
+zu einer Liste zusammenführt, wobei der Überhang der
+längeren Liste verworfen wird, z. B.:
+  <code>myZipWith (+) [1, 2] [3, 4, 5] = [4, 6]</code>.
+Nutzen Sie <code>myZipWith</code> zur Implementierung von <code>myZip</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myZipWith</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">(</span>a <span style="color: #268bd2;">-&gt;</span> b <span style="color: #268bd2;">-&gt;</span> c<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>b<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>c<span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">myZipWith</span> <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #2aa198;">[]</span> <span style="color: #859900; font-weight: bold;">_</span>     <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[]</span>
+<span style="color: #268bd2;">myZipWith</span> <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #2aa198;">[]</span>     <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[]</span>
+<span style="color: #268bd2;">myZipWith</span> f <span style="color: #2aa198;">(</span>x<span style="color: #b58900;">:</span>xs<span style="color: #2aa198;">)</span> <span style="color: #2aa198;">(</span>y<span style="color: #b58900;">:</span>ys<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> x <span style="color: #268bd2;">`f`</span> y <span style="color: #b58900;">:</span> myZipWith f xs ys
+
+<span style="color: #268bd2;">myZip</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>b<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">(</span>a,b<span style="color: #b58900;">)</span><span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">myZip</span> <span style="color: #268bd2;">=</span> myZipWith <span style="color: #2aa198;">(</span><span style="color: #b58900;">,</span><span style="color: #2aa198;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">myZip</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span>,<span style="color: #6c71c4;">2</span><span style="color: #2aa198;">]</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">3</span> <span style="color: #268bd2;">..</span> <span style="color: #6c71c4;">5</span><span style="color: #2aa198;">]</span>
+</pre>
+</div>
+
+<pre class="example">
+[(1,3),(2,4)]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org45e219f" class="outline-2">
+<h2 id="org45e219f"><span class="section-number-2">4</span> Aufgabe 4 (Folie I/37)</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+—
+</p>
+</div>
+</div>
+
+<div id="outline-container-org88f516b" class="outline-2">
+<h2 id="org88f516b"><span class="section-number-2">5</span> Aufgabe 5 (Folie I/45–46)</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-org151e0e7" class="outline-3">
+<h3 id="org151e0e7"><span class="section-number-3">5.1</span> Aufgabe 5.1 (Folie I/45)</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Vervollständigen Sie folgende Funktionsdefinitionen
+</p>
+<ol class="org-ol">
+<li>mit Hilfe anonymer Funktionen und</li>
+<li>mittels Funktionen aus dem Modul <code>Prelude</code> und
+Unterversorgung ohne neue Bezeichner einzuführen.</li>
+</ol>
+
+<p>
+Hilfestellung: Funktionen aus dem Modul <code>Prelude</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #2aa198;">(</span><span style="color: #268bd2;">.</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">(</span>b <span style="color: #268bd2;">-&gt;</span> c<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">(</span>a <span style="color: #268bd2;">-&gt;</span> b<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">-&gt;</span> a <span style="color: #268bd2;">-&gt;</span> c
+<span style="color: #268bd2;">flip</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">(</span>a <span style="color: #268bd2;">-&gt;</span> b <span style="color: #268bd2;">-&gt;</span> c<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">-&gt;</span> b <span style="color: #268bd2;">-&gt;</span> a <span style="color: #268bd2;">-&gt;</span> c
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #2aa198;">-- | Verdoppelt alle Werte in einer Liste und addiert 1.</span>
+<span style="color: #268bd2;">doubleInc</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Num</span> a <span style="color: #268bd2;">=&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">doubleInc</span> <span style="color: #268bd2;">=</span> map <span style="color: #268bd2;">...</span>
+
+<span style="color: #2aa198;">-- | Dreht eine Liste herum.</span>
+<span style="color: #268bd2;">rev</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">rev</span> <span style="color: #268bd2;">=</span> foldl <span style="color: #268bd2;">...</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2099bd9" class="outline-3">
+<h3 id="org2099bd9"><span class="section-number-3">5.2</span> Aufgabe 5.2 (Folie I/46)</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Schreiben Sie Haskell-Varianten des Unix-Programms <code>wc</code>, welches
+die Zeilen, Worte und Zeichen der Standard-Eingabe zählt.
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">$ cat test.txt
+erste Zeile
+zweite Zeile
+$ wc &lt; test.txt
+ <span style="color: #6c71c4;">2</span>  <span style="color: #6c71c4;">4</span> <span style="color: #6c71c4;">25</span>
+</pre>
+</div>
+<p>
+Schreiben Sie eine Version, in der Sie alle komplexeren Funktionen
+selbst implementieren, und eine möglichst kurze Version, indem Sie
+Prelude-Funktionen nutzen. Nutzen Sie die Code-Vorlage von der
+Webseite.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1e96f7b" class="outline-3">
+<h3 id="org1e96f7b"><span class="section-number-3">5.3</span> Lösung (mit Prelude)</h3>
+<div class="outline-text-3" id="text-5-3">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">module</span> <span style="color: #b58900;">Main</span> <span style="color: #859900; font-weight: bold;">where</span>
+
+<span style="color: #268bd2;">main</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">IO</span> <span style="color: #2aa198;">()</span>
+<span style="color: #268bd2;">main</span> <span style="color: #268bd2;">=</span> getContents <span style="color: #268bd2;">&gt;&gt;=</span> print <span style="color: #268bd2;">.</span> wc
+
+<span style="color: #2aa198;">-- | Determines the number of lines, words, and characters in a 'String'.</span>
+<span style="color: #2aa198;">-- Two consecutive lines are separated by one newline character.</span>
+<span style="color: #2aa198;">-- Two consecutive words are separated by at least one whitespace character.</span>
+<span style="color: #268bd2;">wc</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">String</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Int</span>, <span style="color: #b58900;">Int</span>, <span style="color: #b58900;">Int</span><span style="color: #2aa198;">)</span>
+<span style="color: #268bd2;">wc</span> cs <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">(</span>length <span style="color: #268bd2;">$</span> lines cs, length <span style="color: #268bd2;">$</span> words cs, length cs<span style="color: #2aa198;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgedb20be" class="outline-3">
+<h3 id="orgedb20be"><span class="section-number-3">5.4</span> Lösung (ohne Memory-Leak)</h3>
+<div class="outline-text-3" id="text-5-4">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #268bd2;">{-# LANGUAGE BangPatterns #-}</span>
+
+<span style="color: #859900; font-weight: bold;">module</span> <span style="color: #b58900;">Main</span> <span style="color: #859900; font-weight: bold;">where</span>
+
+<span style="color: #859900; font-weight: bold;">import</span> <span style="color: #859900; font-weight: bold;">qualified</span> <span style="color: #b58900;">Data.ByteString.Lazy</span> <span style="color: #859900; font-weight: bold;">as</span> <span style="color: #b58900;">B</span>
+<span style="color: #859900; font-weight: bold;">import</span> <span style="color: #b58900;">Data.Attoparsec.ByteString.Char8</span> <span style="color: #2aa198;">(</span>isSpace_w8<span style="color: #2aa198;">)</span>
+<span style="color: #859900; font-weight: bold;">import</span> <span style="color: #b58900;">Data.Char</span>
+<span style="color: #859900; font-weight: bold;">import</span> <span style="color: #b58900;">Data.List</span> <span style="color: #2aa198;">(</span>foldl'<span style="color: #2aa198;">)</span>
+<span style="color: #859900; font-weight: bold;">import</span> <span style="color: #b58900;">Data.Word</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Word8</span><span style="color: #2aa198;">)</span>
+
+
+<span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">Acc</span> e a f <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Acc</span>
+  <span style="color: #2aa198;">{</span> initAcc   <span style="color: #268bd2;">::</span> a
+  , stepAcc   <span style="color: #268bd2;">::</span> a <span style="color: #268bd2;">-&gt;</span> e <span style="color: #268bd2;">-&gt;</span> a
+  , finishAcc <span style="color: #268bd2;">::</span> a <span style="color: #268bd2;">-&gt;</span> f
+  <span style="color: #2aa198;">}</span>
+
+
+<span style="color: #2aa198;">-- | Strictly construct pair.</span>
+<span style="color: #2aa198;">(</span><span style="color: #268bd2;">&lt;!&gt;</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">::</span> a <span style="color: #268bd2;">-&gt;</span> b <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">(</span>a, b<span style="color: #2aa198;">)</span>
+<span style="color: #859900; font-weight: bold;">infixl</span> <span style="color: #6c71c4;">0</span> <span style="color: #268bd2;">&lt;!&gt;</span>
+x <span style="color: #268bd2;">&lt;!&gt;</span> y <span style="color: #268bd2;">=</span> x <span style="color: #268bd2;">`seq`</span> y <span style="color: #268bd2;">`seq`</span> <span style="color: #2aa198;">(</span>x, y<span style="color: #2aa198;">)</span>
+
+<span style="color: #268bd2;">lengthAcc</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Acc</span> a <span style="color: #b58900;">Int</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">lengthAcc</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Acc</span> <span style="color: #6c71c4;">0</span> <span style="color: #2aa198;">(</span><span style="color: #268bd2;">\</span> r <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #268bd2;">-&gt;</span> r <span style="color: #268bd2;">+</span> <span style="color: #6c71c4;">1</span><span style="color: #2aa198;">)</span> id
+
+<span style="color: #268bd2;">wordsAcc</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Acc</span> <span style="color: #b58900;">Word8</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Int</span>, <span style="color: #b58900;">Bool</span><span style="color: #2aa198;">)</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">wordsAcc</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Acc</span> <span style="color: #2aa198;">(</span><span style="color: #6c71c4;">0</span>, <span style="color: #b58900;">True</span><span style="color: #2aa198;">)</span> step fst
+  <span style="color: #859900; font-weight: bold;">where</span> step acc<span style="color: #268bd2;">@</span><span style="color: #2aa198;">(</span>cnt, <span style="color: #b58900;">True</span> <span style="color: #2aa198;">)</span> c <span style="color: #268bd2;">=</span> <span style="color: #859900; font-weight: bold;">if</span> isSpace_w8 c <span style="color: #859900; font-weight: bold;">then</span> acc <span style="color: #859900; font-weight: bold;">else</span> cnt <span style="color: #268bd2;">+</span> <span style="color: #6c71c4;">1</span> <span style="color: #268bd2;">&lt;!&gt;</span> <span style="color: #b58900;">False</span>
+        step acc<span style="color: #268bd2;">@</span><span style="color: #2aa198;">(</span>cnt, <span style="color: #b58900;">False</span><span style="color: #2aa198;">)</span> c <span style="color: #268bd2;">=</span> <span style="color: #859900; font-weight: bold;">if</span> isSpace_w8 c <span style="color: #859900; font-weight: bold;">then</span> <span style="color: #2aa198;">(</span>cnt, <span style="color: #b58900;">True</span><span style="color: #2aa198;">)</span> <span style="color: #859900; font-weight: bold;">else</span> acc
+
+<span style="color: #268bd2;">newlineAcc</span> <span style="color: #268bd2;">::</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Eq</span> a, <span style="color: #b58900;">Num</span> a<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=&gt;</span> <span style="color: #b58900;">Acc</span> a <span style="color: #b58900;">Int</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">newlineAcc</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Acc</span> <span style="color: #6c71c4;">0</span> step id
+  <span style="color: #859900; font-weight: bold;">where</span> step r c <span style="color: #268bd2;">=</span> <span style="color: #859900; font-weight: bold;">if</span> fromIntegral <span style="color: #2aa198;">(</span>ord <span style="color: #2aa198;">'\n'</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">==</span> c <span style="color: #859900; font-weight: bold;">then</span> r <span style="color: #268bd2;">+</span> <span style="color: #6c71c4;">1</span> <span style="color: #859900; font-weight: bold;">else</span> r
+
+<span style="color: #2aa198;">(</span><span style="color: #268bd2;">|!|</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Acc</span> e a1 f1 <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Acc</span> e a2 f2 <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Acc</span> e <span style="color: #2aa198;">(</span>a1, a2<span style="color: #2aa198;">)</span> <span style="color: #2aa198;">(</span>f1, f2<span style="color: #2aa198;">)</span>
+<span style="color: #268bd2;">acc1</span> <span style="color: #268bd2;">|!|</span> acc2 <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Acc</span> <span style="color: #2aa198;">(</span>initAcc acc1, initAcc acc2<span style="color: #2aa198;">)</span> step finish
+  <span style="color: #859900; font-weight: bold;">where</span> step   <span style="color: #2aa198;">(</span>a1, a2<span style="color: #2aa198;">)</span> e <span style="color: #268bd2;">=</span> stepAcc   acc1 a1 e <span style="color: #268bd2;">&lt;!&gt;</span> stepAcc   acc2 a2 e
+        finish <span style="color: #2aa198;">(</span>a1, a2<span style="color: #2aa198;">)</span>   <span style="color: #268bd2;">=</span> finishAcc acc1 a1   <span style="color: #268bd2;">&lt;!&gt;</span> finishAcc acc2 a2
+
+<span style="color: #268bd2;">foldAcc</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Acc</span> e a f <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>e<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> f
+<span style="color: #268bd2;">foldAcc</span> a <span style="color: #268bd2;">=</span> finishAcc a <span style="color: #268bd2;">.</span> foldl' <span style="color: #2aa198;">(</span>stepAcc a<span style="color: #2aa198;">)</span> <span style="color: #2aa198;">(</span>initAcc a<span style="color: #2aa198;">)</span>
+
+<span style="color: #268bd2;">main</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">IO</span> <span style="color: #2aa198;">()</span>
+<span style="color: #268bd2;">main</span>
+  <span style="color: #268bd2;">=</span> B.getContents
+  <span style="color: #268bd2;">&gt;&gt;=</span> print <span style="color: #268bd2;">.</span> foldAcc <span style="color: #2aa198;">(</span>newlineAcc <span style="color: #268bd2;">|!|</span> wordsAcc <span style="color: #268bd2;">|!|</span> lengthAcc<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">.</span> B.unpack
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga56b655" class="outline-2">
+<h2 id="orga56b655"><span class="section-number-2">6</span> Aufgabe 6 (Folie I/53)</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Definieren Sie den Typ <code>Tree</code>, der Rose-Trees repräsentieren
+kann, also Bäume deren Knoten jeweils beliebig viele
+Nachfolger haben dürfen.
+</p>
+
+<p>
+Definieren Sie die Funktion <code>spinalTree :: Int -&gt; Tree Int</code>,
+die Bäume folgender Form generiert:
+</p>
+
+<p>
+<code>spinalTree n</code> =
+</p>
+
+<div class="figure">
+<p><img src="spinalTree.png" alt="spinalTree.png" />
+</p>
+</div>
+
+<p>
+Definieren Sie die Funktion <code>height</code>, welche die Höhe eines
+Trees bestimmt.
+</p>
+
+<p>
+Definieren Sie die Funktion <code>yield</code>, welche alle Blattknoten
+eines Trees in einer Liste zurück gibt.
+</p>
+
+<p>
+Sorgen Sie für eine Laufzeit in O(n) für <code>yield (spinalTree n)</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">Tree</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Node</span> a <span style="color: #2aa198;">[</span><span style="color: #b58900;">Tree</span> a<span style="color: #2aa198;">]</span> <span style="color: #859900; font-weight: bold;">deriving</span> <span style="color: #b58900;">Show</span>
+
+<span style="color: #268bd2;">spinalTree</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Tree</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">spinalTree</span> <span style="color: #6c71c4;">0</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Node</span> <span style="color: #6c71c4;">0</span> <span style="color: #2aa198;">[]</span>
+<span style="color: #268bd2;">spinalTree</span> i <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Node</span> i <span style="color: #2aa198;">[</span><span style="color: #b58900;">Node</span> i <span style="color: #b58900;">[]</span>, spinalTree <span style="color: #b58900;">(</span>pred i<span style="color: #b58900;">)</span>, <span style="color: #b58900;">Node</span> i <span style="color: #b58900;">[]</span><span style="color: #2aa198;">]</span>
+
+<span style="color: #268bd2;">height</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Tree</span> a <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span>
+<span style="color: #268bd2;">height</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Node</span> <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #b58900;">[]</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">1</span>
+<span style="color: #268bd2;">height</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Node</span> <span style="color: #859900; font-weight: bold;">_</span> ts<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">1</span> <span style="color: #268bd2;">+</span> maximum <span style="color: #2aa198;">(</span>map height ts<span style="color: #2aa198;">)</span>
+
+<span style="color: #268bd2;">yield</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Tree</span> a <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">yield</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Node</span> x <span style="color: #b58900;">[]</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[</span>x<span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">yield</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Node</span> <span style="color: #859900; font-weight: bold;">_</span> ts<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> concatMap yield ts
+
+<span style="color: #93a1a1;">-- </span><span style="color: #93a1a1;">based on Data.Tree.flatten</span>
+<span style="color: #268bd2;">yieldFast</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Tree</span> a <span style="color: #268bd2;">-&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">yieldFast</span> t <span style="color: #268bd2;">=</span> go t <span style="color: #2aa198;">[]</span>
+  <span style="color: #859900; font-weight: bold;">where</span>
+    go <span style="color: #2aa198;">(</span><span style="color: #b58900;">Node</span> x <span style="color: #b58900;">[]</span><span style="color: #2aa198;">)</span> xs <span style="color: #268bd2;">=</span> x <span style="color: #b58900;">:</span> xs
+    go <span style="color: #2aa198;">(</span><span style="color: #b58900;">Node</span> <span style="color: #859900; font-weight: bold;">_</span> ts<span style="color: #2aa198;">)</span> xs <span style="color: #268bd2;">=</span> foldr go xs ts
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #2aa198;">(</span>height <span style="color: #268bd2;">$</span> spinalTree <span style="color: #6c71c4;">5</span>, yieldFast <span style="color: #268bd2;">$</span> spinalTree <span style="color: #6c71c4;">5</span><span style="color: #2aa198;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+(6,[5,4,3,2,1,0,1,2,3,4,5])
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgb00db50" class="outline-2">
+<h2 id="orgb00db50"><span class="section-number-2">7</span> Leseauftrag</h2>
+<div class="outline-text-2" id="text-7">
+<dl class="org-dl">
+<dt>Literatur</dt><dd>[LYaH12, Kap. 7], [PHfNLP15, Folien I/56–62, FS II], [TCP, Kap. 1–3]</dd>
+<dt>Aufgaben</dt><dd>[PHfNLP15, Folien I/59, II/6, II/17, II/24, II/31], [TCP, Kap. 3.2, 3.3]</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org6d1ac33" class="outline-2">
+<h2 id="org6d1ac33"><span class="section-number-2">8</span> Literatur</h2>
+<div class="outline-text-2" id="text-8">
+<dl class="org-dl">
+<dt>[LYaH12]  </dt><dd>Miran Lipovača: Learn You a Haskell for Great Good, 2012, <a href="http://learnyouahaskell.com/">http://learnyouahaskell.com/</a>.</dd>
+<dt>[PHfNLP15]</dt><dd>Toni Dietze: Praktikum Haskell für NLP, Foliensatz, 2015.</dd>
+<dt>[TCP]     </dt><dd>Brent Yorgey: Typeclassopedia, <a href="https://wiki.haskell.org/Typeclassopedia">https://wiki.haskell.org/Typeclassopedia</a>.</dd>
+</dl>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2017-04-19 Mi 08:21</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
