@@ -2,8 +2,7 @@
 
 * Organisatorisches
   - Website :: [[https://www.inf.tu-dresden.de/index.php?node_id=3777]]
-  - Nutzer :: user
-  - Passwort :: monadsAreBurritos
+
 ** Module
 | Modul      | Studiengang   | Prüfung            | SWS | Name der Lehrveranstaltung                          |
 |------------+---------------+--------------------+-----+-----------------------------------------------------|
