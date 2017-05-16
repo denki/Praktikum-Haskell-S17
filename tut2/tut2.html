@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-27 Do 13:45 -->
+<!-- 2017-05-17 Mi 07:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Praktikum Hashell – Tutorium 2 (2017-05-02)</title>
+<title>Praktikum Hashell – Tutorium 2 (2017-05-02 und 2017-05-16)</title>
 <meta name="generator" content="Org mode" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -183,7 +183,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -227,42 +227,44 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Praktikum Hashell – Tutorium 2 (2017-05-02)</h1>
+<h1 class="title">Praktikum Hashell – Tutorium 2 (2017-05-02 und 2017-05-16)</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1139736">1. Aufgabe 1 (Folie I/59)</a></li>
-<li><a href="#org5bbf257">2. Aufgabe 2 (Folie II/6)</a></li>
-<li><a href="#org793bbd4">3. Aufgabe 3 (Folie II/17)</a>
+<li><a href="#org661a2d3">1. Aufgabe 1 (Folie I/59)</a></li>
+<li><a href="#org2819600">2. Aufgabe 2 (Folie II/6)</a></li>
+<li><a href="#orgf6edb3c">3. Aufgabe 3 (Folie II/17)</a>
 <ul>
-<li><a href="#org045253e">3.1. Aufgabe 3.1</a></li>
-<li><a href="#orgcc5c35f">3.2. Aufgabe 3.2</a></li>
+<li><a href="#org31d3ca0">3.1. Aufgabe 3.1</a></li>
+<li><a href="#org567095d">3.2. Aufgabe 3.2</a></li>
 </ul>
 </li>
-<li><a href="#org1b6c9ba">4. Aufgabe 4 (Folie II/24)</a></li>
-<li><a href="#org631e0fe">5. Aufgabe 5 (Folie II/31)</a></li>
-<li><a href="#org80d899b">6. Aufgabe 6 (TCP, Kap. 3.2)</a>
+<li><a href="#orgc29c1eb">4. Aufgabe 4 (Folie II/24)</a></li>
+<li><a href="#orga2ff3ee">5. Aufgabe 5 (Folie II/31)</a></li>
+<li><a href="#orgc7db284">6. Aufgabe 6 (TCP, Kap. 3.2)</a>
 <ul>
-<li><a href="#org45e8742">6.1. Aufgabe 6.1</a></li>
-<li><a href="#org09c1dc7">6.2. Aufgabe 6.2</a></li>
-<li><a href="#orgb76f4ed">6.3. Aufgabe 6.3</a></li>
-<li><a href="#org8086a40">6.4. Aufgabe 6.4</a></li>
-<li><a href="#orgce3251f">6.5. Aufgabe 6.5</a></li>
+<li><a href="#org8fb16aa">6.1. Aufgabe 6.1</a></li>
+<li><a href="#orgec6cc0a">6.2. Aufgabe 6.2</a></li>
+<li><a href="#org96e1d0c">6.3. Aufgabe 6.3</a></li>
+<li><a href="#orgdaa0688">6.4. Aufgabe 6.4</a></li>
+<li><a href="#org68d702a">6.5. Aufgabe 6.5</a></li>
 </ul>
 </li>
-<li><a href="#org8381a9e">7. Aufgabe 7 (TCP, Kap. 3.3)</a>
+<li><a href="#orgc5cf43b">7. Aufgabe 7 (TCP, Kap. 3.3)</a>
 <ul>
-<li><a href="#org7587f19">7.1. Aufgabe 7.1</a></li>
-<li><a href="#orge09c36a">7.2. Aufgabe 7.2</a></li>
+<li><a href="#orgb02372d">7.1. Aufgabe 7.1</a></li>
+<li><a href="#org1ac7fd5">7.2. Aufgabe 7.2</a></li>
 </ul>
 </li>
+<li><a href="#orgfb7efbc">8. Leseauftrag</a></li>
+<li><a href="#org6b671c7">9. Literatur</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org1139736" class="outline-2">
-<h2 id="org1139736"><span class="section-number-2">1</span> Aufgabe 1 (Folie I/59)</h2>
+<div id="outline-container-org661a2d3" class="outline-2">
+<h2 id="org661a2d3"><span class="section-number-2">1</span> Aufgabe 1 (Folie I/59)</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Definieren Sie in Haskell einen Datentyp <code>Cmplx</code> zur Darstellung von
@@ -284,15 +286,25 @@ gegeben.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #268bd2;">=</span> undefined
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">Cmplx</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #2aa198;">{</span> real <span style="color: #268bd2;">::</span> a, img <span style="color: #268bd2;">::</span> a <span style="color: #2aa198;">}</span> <span style="color: #859900; font-weight: bold;">deriving</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Eq</span>, <span style="color: #b58900;">Show</span><span style="color: #2aa198;">)</span>
+
+<span style="color: #268bd2;">cEx1, cEx2</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #b58900;">Double</span>
+<span style="color: #268bd2;">cEx1</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #2aa198;">{</span> real <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">1.0</span>, img <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">1.0</span> <span style="color: #2aa198;">}</span>
+<span style="color: #268bd2;">cEx2</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #2aa198;">{</span> real <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">0.0</span>, img <span style="color: #268bd2;">=</span> <span style="color: #6c71c4;">1.0</span> <span style="color: #2aa198;">}</span>
+
+<span style="color: #859900; font-weight: bold;">instance</span> <span style="color: #b58900;">Num</span> a <span style="color: #268bd2;">=&gt;</span> <span style="color: #b58900;">Num</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Cmplx</span> a<span style="color: #2aa198;">)</span> <span style="color: #859900; font-weight: bold;">where</span>
+  c1 <span style="color: #268bd2;">+</span> c2 <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #2aa198;">{</span> real <span style="color: #268bd2;">=</span> real c1 <span style="color: #268bd2;">+</span> real c2,  img <span style="color: #268bd2;">=</span> img c1 <span style="color: #268bd2;">+</span> img c2 <span style="color: #2aa198;">}</span>
+  <span style="color: #2aa198;">(</span><span style="color: #268bd2;">*</span><span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> undefined
+  abs <span style="color: #268bd2;">=</span> undefined
+  negate c <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #2aa198;">{</span> real <span style="color: #268bd2;">=</span> negate <span style="color: #268bd2;">$</span> real c, img <span style="color: #268bd2;">=</span> negate <span style="color: #268bd2;">$</span> img c <span style="color: #2aa198;">}</span> 
+  fromInteger i <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Cmplx</span> <span style="color: #2aa198;">{</span> real <span style="color: #268bd2;">=</span> fromInteger i, img <span style="color: #268bd2;">=</span> fromInteger <span style="color: #6c71c4;">0</span> <span style="color: #2aa198;">}</span>
 </pre>
 </div>
 </div>
 </div>
 
-
-<div id="outline-container-org5bbf257" class="outline-2">
-<h2 id="org5bbf257"><span class="section-number-2">2</span> Aufgabe 2 (Folie II/6)</h2>
+<div id="outline-container-org2819600" class="outline-2">
+<h2 id="org2819600"><span class="section-number-2">2</span> Aufgabe 2 (Folie II/6)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Schreiben Sie eine Funktion, die für ein gegebenes n ∈ ℕ die
@@ -361,9 +373,8 @@ Testen Sie Ihre Funktion mit großen Eingaben.
 </div>
 </div>
 
-
-<div id="outline-container-org793bbd4" class="outline-2">
-<h2 id="org793bbd4"><span class="section-number-2">3</span> Aufgabe 3 (Folie II/17)</h2>
+<div id="outline-container-orgf6edb3c" class="outline-2">
+<h2 id="orgf6edb3c"><span class="section-number-2">3</span> Aufgabe 3 (Folie II/17)</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Erinnerung: Testen unter verschärften Speicherbedingungen:
@@ -376,8 +387,8 @@ Erinnerung: Testen unter verschärften Speicherbedingungen:
 </div>
 
 
-<div id="outline-container-org045253e" class="outline-3">
-<h3 id="org045253e"><span class="section-number-3">3.1</span> Aufgabe 3.1</h3>
+<div id="outline-container-org31d3ca0" class="outline-3">
+<h3 id="org31d3ca0"><span class="section-number-3">3.1</span> Aufgabe 3.1</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Schreiben Sie die Funktion <code>average</code>, welche den Durchschnitt
@@ -390,15 +401,20 @@ Implementierung auf Speichereffizienz.
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #268bd2;">average</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Fractional</span> a <span style="color: #268bd2;">=&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> a
-<span style="color: #268bd2;">average</span> <span style="color: #268bd2;">=</span> undefined
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">import</span> <span style="color: #b58900;">Data.List</span> <span style="color: #2aa198;">(</span>foldl'<span style="color: #2aa198;">)</span>
+
+<span style="color: #268bd2;">averageBad</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Fractional</span> a <span style="color: #268bd2;">=&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> a
+<span style="color: #268bd2;">averageBad</span> xs <span style="color: #268bd2;">=</span> sum xs <span style="color: #268bd2;">/</span> fromIntegral <span style="color: #2aa198;">(</span>length xs<span style="color: #2aa198;">)</span>
+
+<span style="color: #268bd2;">average</span> <span style="color: #268bd2;">::</span> <span style="color: #b58900;">Fractional</span> a <span style="color: #268bd2;">=&gt;</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span> <span style="color: #268bd2;">-&gt;</span> a
+<span style="color: #268bd2;">average</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">(</span><span style="color: #268bd2;">\</span> <span style="color: #b58900;">(</span>s, c<span style="color: #b58900;">)</span> <span style="color: #268bd2;">-&gt;</span> s <span style="color: #268bd2;">/</span> c<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">.</span> foldl' <span style="color: #2aa198;">(</span><span style="color: #268bd2;">\</span><span style="color: #b58900;">(</span>s, c<span style="color: #b58900;">)</span> a <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">(</span>s <span style="color: #268bd2;">+</span> a, c <span style="color: #268bd2;">+</span> <span style="color: #6c71c4;">1</span><span style="color: #b58900;">)</span><span style="color: #2aa198;">)</span> <span style="color: #2aa198;">(</span><span style="color: #6c71c4;">0</span>,<span style="color: #6c71c4;">0</span><span style="color: #2aa198;">)</span> 
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgcc5c35f" class="outline-3">
-<h3 id="orgcc5c35f"><span class="section-number-3">3.2</span> Aufgabe 3.2</h3>
+<div id="outline-container-org567095d" class="outline-3">
+<h3 id="org567095d"><span class="section-number-3">3.2</span> Aufgabe 3.2</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Verbessern Sie das Speicherverhalten Ihrer <code>wc</code>-Implementierung.
@@ -413,9 +429,8 @@ Verbessern Sie das Speicherverhalten Ihrer <code>wc</code>-Implementierung.
 </div>
 </div>
 
-
-<div id="outline-container-org1b6c9ba" class="outline-2">
-<h2 id="org1b6c9ba"><span class="section-number-2">4</span> Aufgabe 4 (Folie II/24)</h2>
+<div id="outline-container-orgc29c1eb" class="outline-2">
+<h2 id="orgc29c1eb"><span class="section-number-2">4</span> Aufgabe 4 (Folie II/24)</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Gegeben sei folgende Funktionsdefinition.
@@ -437,12 +452,11 @@ Wenn nicht, wie kann man eine bessere Auswertungsreihenfolge erreichen?</li>
 </div>
 </div>
 
-<div id="outline-container-org631e0fe" class="outline-2">
-<h2 id="org631e0fe"><span class="section-number-2">5</span> Aufgabe 5 (Folie II/31)</h2>
+<div id="outline-container-orga2ff3ee" class="outline-2">
+<h2 id="orga2ff3ee"><span class="section-number-2">5</span> Aufgabe 5 (Folie II/31)</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-Sei Tree der Typ aus dem Modul Data.Tree. Programmieren Sie die
-Funktion
+Sei <code>Tree</code> der Typ aus dem Modul <code>Data.Tree</code>. Programmieren Sie die Funktion
 </p>
 
 <div class="org-src-container">
@@ -470,29 +484,41 @@ Implementierung zu testen.
 </div>
 </div>
 
-
-<div id="outline-container-org80d899b" class="outline-2">
-<h2 id="org80d899b"><span class="section-number-2">6</span> Aufgabe 6 (TCP, Kap. 3.2)</h2>
+<div id="outline-container-orgc7db284" class="outline-2">
+<h2 id="orgc7db284"><span class="section-number-2">6</span> Aufgabe 6 (TCP, Kap. 3.2)</h2>
 <div class="outline-text-2" id="text-6">
-</div><div id="outline-container-org45e8742" class="outline-3">
-<h3 id="org45e8742"><span class="section-number-3">6.1</span> Aufgabe 6.1</h3>
+</div><div id="outline-container-org8fb16aa" class="outline-3">
+<h3 id="org8fb16aa"><span class="section-number-3">6.1</span> Aufgabe 6.1</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 Implement <code>Functor</code> instances for <code>Either e</code> and <code>((-&gt;) e)</code>.
 </p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">instance</span> <span style="color: #b58900;">Functor</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Either</span> e<span style="color: #2aa198;">)</span> <span style="color: #859900; font-weight: bold;">where</span>
+  fmap <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Left</span> e<span style="color: #2aa198;">)</span>  <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Left</span> e
+  fmap f <span style="color: #2aa198;">(</span><span style="color: #b58900;">Right</span> a<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Right</span> <span style="color: #268bd2;">$</span> f a
+
+<span style="color: #859900; font-weight: bold;">instance</span> <span style="color: #b58900;">Functor</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">(</span><span style="color: #b58900;">-&gt;</span><span style="color: #b58900;">)</span> e<span style="color: #2aa198;">)</span> <span style="color: #859900; font-weight: bold;">where</span>
+  fmap <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">(</span><span style="color: #268bd2;">.</span><span style="color: #2aa198;">)</span>
+</pre>
+</div>
 </div>
 </div>
 
-
-<div id="outline-container-org09c1dc7" class="outline-3">
-<h3 id="org09c1dc7"><span class="section-number-3">6.2</span> Aufgabe 6.2</h3>
+<div id="outline-container-orgec6cc0a" class="outline-3">
+<h3 id="orgec6cc0a"><span class="section-number-3">6.2</span> Aufgabe 6.2</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 Implement <code>Functor</code> instances for <code>((,) e)</code> and for <code>Pair</code>, defined as
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">Pair</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Pair</span> a a
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">instance</span> <span style="color: #b58900;">Functor</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">(</span><span style="color: #b58900;">,</span><span style="color: #b58900;">)</span> e<span style="color: #2aa198;">)</span> <span style="color: #859900; font-weight: bold;">where</span>
+  fmap f <span style="color: #2aa198;">(</span>e, a<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">(</span>e, f a<span style="color: #2aa198;">)</span> 
+
+<span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">Pair</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Pair</span> a a
+  fmap f <span style="color: #2aa198;">(</span><span style="color: #b58900;">Pair</span> a&#8321; a&#8322;<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Pair</span> <span style="color: #2aa198;">(</span>f a&#8321;<span style="color: #2aa198;">)</span> <span style="color: #2aa198;">(</span>f a&#8322;<span style="color: #2aa198;">)</span>
 </pre>
 </div>
 
@@ -502,35 +528,40 @@ Explain their similarities and differences.
 </div>
 </div>
 
-
-<div id="outline-container-orgb76f4ed" class="outline-3">
-<h3 id="orgb76f4ed"><span class="section-number-3">6.3</span> Aufgabe 6.3</h3>
+<div id="outline-container-org96e1d0c" class="outline-3">
+<h3 id="org96e1d0c"><span class="section-number-3">6.3</span> Aufgabe 6.3</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 Implement a <code>Functor</code> instance for the type <code>ITree</code>, defined as
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">ITree</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Leaf</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> a<span style="color: #2aa198;">)</span> 
-             <span style="color: #268bd2;">|</span> <span style="color: #b58900;">Node</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">ITree</span> a<span style="color: #2aa198;">]</span>
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">data</span> <span style="color: #b58900;">ITree</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Leaf</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">Int</span> <span style="color: #268bd2;">-&gt;</span> a<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">|</span> <span style="color: #b58900;">Node</span> <span style="color: #2aa198;">[</span><span style="color: #b58900;">ITree</span> a<span style="color: #2aa198;">]</span>
+
+<span style="color: #859900; font-weight: bold;">instance</span> <span style="color: #b58900;">Functor</span> <span style="color: #b58900;">ITree</span> <span style="color: #859900; font-weight: bold;">where</span>
+  fmap f <span style="color: #2aa198;">(</span><span style="color: #b58900;">Leaf</span> g<span style="color: #2aa198;">)</span>  <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Leaf</span> <span style="color: #2aa198;">(</span>f <span style="color: #268bd2;">.</span> g<span style="color: #2aa198;">)</span>
+  fmap f <span style="color: #2aa198;">(</span><span style="color: #b58900;">Node</span> ts<span style="color: #2aa198;">)</span> <span style="color: #268bd2;">=</span> <span style="color: #b58900;">Node</span> <span style="color: #268bd2;">$</span> fmap <span style="color: #2aa198;">(</span>fmap f<span style="color: #2aa198;">)</span> ts 
 </pre>
 </div>
 </div>
 </div>
 
-
-<div id="outline-container-org8086a40" class="outline-3">
-<h3 id="org8086a40"><span class="section-number-3">6.4</span> Aufgabe 6.4</h3>
+<div id="outline-container-orgdaa0688" class="outline-3">
+<h3 id="orgdaa0688"><span class="section-number-3">6.4</span> Aufgabe 6.4</h3>
 <div class="outline-text-3" id="text-6-4">
 <p>
 Give an example of a type of kind <code>* -&gt; *</code> which cannot be made an instance of <code>Functor</code> (without using <code>undefined</code>).
 </p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">newtype</span> <span style="color: #b58900;">T</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">T</span> <span style="color: #2aa198;">(</span>a <span style="color: #268bd2;">-&gt;</span> <span style="color: #b58900;">Int</span><span style="color: #2aa198;">)</span>
+</pre>
+</div>
 </div>
 </div>
 
-
-<div id="outline-container-orgce3251f" class="outline-3">
-<h3 id="orgce3251f"><span class="section-number-3">6.5</span> Aufgabe 6.5</h3>
+<div id="outline-container-org68d702a" class="outline-3">
+<h3 id="org68d702a"><span class="section-number-3">6.5</span> Aufgabe 6.5</h3>
 <div class="outline-text-3" id="text-6-5">
 <p>
 Is this statement true or false?
@@ -543,36 +574,79 @@ Is this statement true or false?
 <p>
 If false, give a counterexample; if true, prove it by exhibiting some appropriate Haskell code.
 </p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #93a1a1;">-- </span><span style="color: #93a1a1;">Let G and F be instances of Functor.</span>
+<span style="color: #859900; font-weight: bold;">newtype</span> <span style="color: #b58900;">T</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">T</span> <span style="color: #2aa198;">(</span><span style="color: #b58900;">G</span> <span style="color: #b58900;">(</span><span style="color: #b58900;">F</span> a<span style="color: #b58900;">)</span><span style="color: #2aa198;">)</span>
+
+<span style="color: #859900; font-weight: bold;">instance</span> <span style="color: #b58900;">Functor</span> <span style="color: #b58900;">T</span> <span style="color: #859900; font-weight: bold;">where</span>
+  fmap <span style="color: #268bd2;">=</span> fmap <span style="color: #268bd2;">.</span> fmap  <span style="color: #93a1a1;">-- </span><span style="color: #93a1a1;">fmap f x = fmap (fmap f) x</span>
+</pre>
+</div>
 </div>
 </div>
 </div>
 
-
-<div id="outline-container-org8381a9e" class="outline-2">
-<h2 id="org8381a9e"><span class="section-number-2">7</span> Aufgabe 7 (TCP, Kap. 3.3)</h2>
+<div id="outline-container-orgc5cf43b" class="outline-2">
+<h2 id="orgc5cf43b"><span class="section-number-2">7</span> Aufgabe 7 (TCP, Kap. 3.3)</h2>
 <div class="outline-text-2" id="text-7">
-</div><div id="outline-container-org7587f19" class="outline-3">
-<h3 id="org7587f19"><span class="section-number-3">7.1</span> Aufgabe 7.1</h3>
+</div><div id="outline-container-orgb02372d" class="outline-3">
+<h3 id="orgb02372d"><span class="section-number-3">7.1</span> Aufgabe 7.1</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 Although it is not possible for a <code>Functor</code> instance to satisfy the first <code>Functor</code> law but not the second (excluding <code>undefined</code>), the reverse is possible. Give an example of a (bogus) <code>Functor</code> instance which satisfies the second law but not the first.
 </p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #859900; font-weight: bold;">newtype</span> <span style="color: #b58900;">NewList</span> a <span style="color: #268bd2;">=</span> <span style="color: #b58900;">NewList</span> <span style="color: #2aa198;">[</span>a<span style="color: #2aa198;">]</span>
+
+<span style="color: #859900; font-weight: bold;">instance</span> <span style="color: #b58900;">Functor</span> <span style="color: #b58900;">NewList</span> <span style="color: #859900; font-weight: bold;">where</span>
+  fmap <span style="color: #859900; font-weight: bold;">_</span> <span style="color: #268bd2;">=</span> const <span style="color: #2aa198;">(</span><span style="color: #b58900;">NewList</span> <span style="color: #b58900;">[]</span><span style="color: #2aa198;">)</span>
+</pre>
+</div>
 </div>
 </div>
 
-
-<div id="outline-container-orge09c36a" class="outline-3">
-<h3 id="orge09c36a"><span class="section-number-3">7.2</span> Aufgabe 7.2</h3>
+<div id="outline-container-org1ac7fd5" class="outline-3">
+<h3 id="org1ac7fd5"><span class="section-number-3">7.2</span> Aufgabe 7.2</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>
 Which laws are violated by the evil <code>Functor</code> instance for list shown above: both laws, or the first law alone? Give specific counterexamples. 
 </p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #93a1a1;">-- </span><span style="color: #93a1a1;">both laws</span>
+<span style="color: #268bd2;">fmap</span> id <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[</span>id <span style="color: #6c71c4;">1</span>, id <span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span>, <span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">&#8800;</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">=</span> id <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span>
+<span style="color: #268bd2;">fmap</span> id <span style="color: #268bd2;">$</span> fmap id <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">=</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span>, <span style="color: #6c71c4;">1</span>, <span style="color: #6c71c4;">1</span>, <span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">&#8800;</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span>, <span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span> <span style="color: #268bd2;">=</span> fmap <span style="color: #2aa198;">(</span>id <span style="color: #268bd2;">.</span> id<span style="color: #2aa198;">)</span> <span style="color: #2aa198;">[</span><span style="color: #6c71c4;">1</span><span style="color: #2aa198;">]</span>
+</pre>
 </div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfb7efbc" class="outline-2">
+<h2 id="orgfb7efbc"><span class="section-number-2">8</span> Leseauftrag</h2>
+<div class="outline-text-2" id="text-8">
+<dl class="org-dl">
+<dt>Literatur</dt><dd>[LYaH12, Kap. 13–14], [PHfNLP15, FS III], [TCP, Abschnitt 5]</dd>
+<dt>Aufgaben</dt><dd>[PHfNLP15, Folien III/2, III/5, III/10, III/14, III/24], [TCP, Abschnitte 5.2, 5.3]</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org6b671c7" class="outline-2">
+<h2 id="org6b671c7"><span class="section-number-2">9</span> Literatur</h2>
+<div class="outline-text-2" id="text-9">
+<dl class="org-dl">
+<dt>[LYaH12]</dt><dd>Miran Lipovača: Learn You a Haskell for Great Good, 2012, <a href="http://learnyouahaskell.com/">http://learnyouahaskell.com/</a>.</dd>
+<dt>[PHfNLP15]</dt><dd>Toni Dietze: Praktikum Haskell für NLP, Foliensatz, 2015.</dd>
+<dt>[TCP]</dt><dd>Brent Yorgey: Typeclassopedia, <a href="https://wiki.haskell.org/Typeclassopedia">https://wiki.haskell.org/Typeclassopedia</a>.</dd>
+</dl>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-04-27 Do 13:45</p>
+<p class="date">Created: 2017-05-17 Mi 07:47</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

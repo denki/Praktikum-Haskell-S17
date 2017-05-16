@@ -1,0 +1,187 @@
+#+title: Praktikum Hashell – Tutorium 3 (2017-05-16)
+
+* Aufgabe 1 (Folie III/2)
+
+Laden Sie sich die Vorlagen von der Webseite herunter.
+Programmieren Sie dann die Funktion ~greatgrandmotherfs~, welche
+für eine gegebene Person mit Hilfe der Funktionen mother und
+father die Urgroßmutter (groß)väterlicherseits berechnet. Ist die
+Urgroßmutter nicht bekannt, soll Nothing zurückgegeben werden,
+ansonsten Just p, wobei p die Urgroßmutter ist.
+
+#+begin_src haskell :tangle Genealogy.hs
+module Genealogy where
+
+type Person = String
+
+father :: Person -> Maybe Person
+father "Albert" = Just "Berti"
+father "Berti"  = Just "Conrad"
+father "Beate"  = Just "Dennis"
+father "Conrad" = Just "Erich"
+father "Eva"    = Just "Fritz"
+father _        = Nothing
+
+mother :: Person -> Maybe Person
+mother "Albert" = Just "Beate"
+mother "Berti"  = Just "Claudia"
+mother "Beate"  = Just "Dora"
+mother "Conrad" = Just "Eva"
+mother _        = Nothing
+
+parents :: Person -> [Person]
+parents p = maybeToList (father p) ++ maybeToList (mother p)
+  where
+    maybeToList Nothing  = []
+    maybeToList (Just a) = [a]
+#+end_src
+
+#+begin_src haskell :tangle Genealogy.hs
+greatgrandmotherfs :: Person -> Maybe Person
+greatgrandmotherfs = undefined
+#+end_src
+
+* Aufgabe 2 (Folie III/5)
+
+Laden Sie sich die Vorlagen von der Webseite herunter.
+Programmieren Sie dann die Funktion ~greatgrandparents~, welche
+für eine gegebene Person mit Hilfe der Funktion parents alle
+bekannten Urgroßeltern berechnet und in einer Liste zurück gibt.
+
+#+begin_src haskell :tangle Genealogy.hs
+greatgrandparents :: Person -> [Person]
+greatgrandparents = undefined
+#+end_src
+
+* Aufgabe 3 (Folie III/10)
+
+Schreiben Sie die Funktion ~powerM~, sodass ~powerM m n~ eine
+monadische Berechnung ~m~ genau ~n~-mal hintereinander
+ausführt, z. B. ~powerM m 3 = \ x -> m x >>= m >>= m~.
+Welchen Typ hat ~powerM~?
+
+#+begin_src haskell :tangle Genealogy.hs
+powerM1 :: Monad m => (a -> m a) -> Int -> a -> m a
+powerM1 _ 0 = return
+powerM1 m n = \x -> m x >>= powerM1 m (n - 1)
+
+powerM2 :: Monad m => (a -> m a) -> Int -> a -> m a
+powerM2 m = (iterate (m <=<) return !!)
+#+end_src
+
+Bestimmen Sie mit Hilfe von ~powerM~ für eine Person den
+Urgroßvater (groß)väterlicherseits und alle Urgroßeltern.
+
+* Aufgabe 4 (Folie III/14)
+
+Definieren Sie einen Wert, der alle primitiven pythagoreischen
+Tripel in einer Liste repräsentiert. Genauer: Für jedes primitive
+pythagoreische Tripel soll es genau ein n ∈ N geben, sodass das n-te
+Element der Liste gleich dem Tripel ist. Schreiben Sie jeweils eine
+Variante
+  * mittels Listen-Monade ohne do-Ausdrücke,
+  * mittels Listen-Monade ohne Bind-Operator und
+  * mittels List-Comprehension.
+
+#+begin_src haskell
+pythagoreanTriples1 :: [(Integer, Integer, Integer)]
+pythagoreanTriples1 = do
+  u <- [2 ..]
+  v <- [u - 1, u - 3 .. 1]
+  if gcd u v == 1
+  then return (u * u - v * v, 2 * u * v, u * u + v * v)
+  else []
+
+pythagoreanTriples2 :: [(Integer, Integer, Integer)]
+pythagoreanTriples2
+  = [ (u * u - v * v, 2 * u * v, u * u + v * v)
+    | u <- [2 ..]
+    , v <- [u - 1, u - 3 .. 1]
+    , gcd u v == 1
+    ]
+
+pythagoreanTriplesNaive :: [(Integer, Integer, Integer)]
+pythagoreanTriplesNaive
+  = [ (a, b, c)
+    | c <- [1 ..]
+    , a <- [1 .. c]
+    , b <- [1 .. c]
+    , a * a + b * b == c * c
+    , gcd a (gcd b c) == 1
+    ]
+#+end_src
+
+* Aufgabe 5 (Folie III/24)
+
+Implementieren Sie intify mit Hilfe der State-Monade. Nutzen Sie
+dazu eines der Module
+  * Control.Monad.State.Lazy oder
+  * Control.Monad.State.Strict.
+Welches der beiden Module ist besser geeignet? Besteht Ihre
+Implementierung alle Tests? Wenn nicht, warum?
+
+*Erinnerung*
+#+begin_src haskell
+intify :: Eq a => [Tree a] -> ([Tree Int], [(a, Int)])
+#+end_src
+Die Funktion soll möglichst lazy arbeiten, ohne unnötig große
+Thunks aufzubauen.
+Nutzen Sie den vorgegebenen Code von der Webseite, um ihre
+Implementierung zu testen.
+
+*Lösung:* siehe intify.hs
+
+* Aufgabe 6 (TCP, Exercise 5.2)
+
+a. Implement a ~Monad~ instance for the list constructor, ~[]~. Follow the types!
+#+begin_src haskell
+instance Monad [] where
+  return x = [x]
+  (>>=) = flip concatMap
+#+end_src
+
+b. Implement a ~Monad~ instance for ~((->) e)~.
+#+begin_src haskell
+instance Monad ((->) e) where
+  return  = const
+  f >>= k = \e -> k (f e) e
+#+end_src
+
+c. Implement ~Functor~ and ~Monad~ instances for ~Free f~. Assume that ~f~ has a ~Functor~ instance.
+#+begin_src haskell
+data Free f a = Var a | Node (f (Free f a))
+
+instance Functor f => Functor (Free f) where
+  fmap φ (Var a)  = Var $ φ a
+  fmap φ (Node x) = Node $ fmap φ x
+
+instance Functor f => Monad (Free f) where
+  return = Var
+  (Var a)  >>= φ = φ a
+  (Node x) >>= φ = Node $ fmap (>>= φ) x
+#+end_src
+
+* Aufgabe 7 (TCP, Exercise 5.3)
+
+a. Implement ~(>>=)~ in terms of ~fmap~ (or ~liftM~) and ~join~.
+#+begin_src haskell
+x >>= φ = join $ fmap φ x
+#+end_src
+
+b. Now implement ~join~ and ~fmap~ (or ~liftM~) in terms of ~(>>=)~ and ~return~.
+#+begin_src haskell
+join :: Monad m => m (m a) -> m a
+join = (>>= id)
+
+fmap f = (>>= return . f) 
+#+end_src
+
+* Leseauftrag
+  - Literatur :: [RWH, Kap. 25], [LYaH12, Kap. 6], [PHfNLP15, FS IV–V], [PSLIP]
+
+* Literatur
+  - [LYaH12] :: Miran Lipovača: Learn You a Haskell for Great Good, 2012, <http://learnyouahaskell.com/>.
+  - [PHfNLP15] :: Toni Dietze: Praktikum Haskell für NLP, Foliensatz, 2015.
+  - [RWH08] ::  Bryan O'Sullivan, John Goerzen, and Don Stewart: Real World Haskell, 2008, <http://book.realworldhaskell.org/>.
+  - [PSLIP] :: Neil Mitchell: Plugging Space Leaks, Improving Performance, 2016, <http://ndmitchell.com/downloads/slides-plugging_space_leaks_improving_performance-06_oct_2016.pdf>.
+
