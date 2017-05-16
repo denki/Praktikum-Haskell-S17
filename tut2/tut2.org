@@ -1,0 +1,259 @@
+#+title: Praktikum Hashell – Tutorium 2 (2017-05-02 und 2017-05-16)
+
+* Aufgabe 1 (Folie I/59)
+Definieren Sie in Haskell einen Datentyp ~Cmplx~ zur Darstellung von
+komplexen Zahlen. Schreiben Sie für ~Cmplx~ eine Instanz der
+Typklasse ~Num~. Dazu sei der folgende Ausschnitt der Typklasse ~Num~
+gegeben.
+
+#+begin_src haskell
+class Num a where
+  (+), (-), (*) :: a -> a -> a
+  negate :: a -> a
+  abs :: a -> a
+  fromInteger :: Integer -> a
+
+  x - y    = x + negate y
+  negate x = 0 - x
+#+end_src
+
+#+begin_src haskell :tangle Cmplx.hs
+data Cmplx a = Cmplx { real :: a, img :: a } deriving (Eq, Show)
+
+cEx1, cEx2 :: Cmplx Double
+cEx1 = Cmplx { real = 1.0, img = 1.0 }
+cEx2 = Cmplx { real = 0.0, img = 1.0 }
+
+instance Num a => Num (Cmplx a) where
+  c1 + c2 = Cmplx { real = real c1 + real c2,  img = img c1 + img c2 }
+  (*) = undefined
+  abs = undefined
+  negate c = Cmplx { real = negate $ real c, img = negate $ img c } 
+  fromInteger i = Cmplx { real = fromInteger i, img = fromInteger 0 }
+#+end_src
+
+* Aufgabe 2 (Folie II/6)
+
+Schreiben Sie eine Funktion, die für ein gegebenes n ∈ ℕ die
+Summe der ganzen Zahlen von 0 bis n berechnet.  Die Funktion
+soll rekursiv arbeiten und nicht die Gaußsche Summenformel
+verwenden.
+
+Starten Sie ghci wie folgt, um die Heap-Größe zu beschränken:
+
+#+begin_src bash
+ghci +RTS -M64M -RTS …
+#+end_src
+
+Testen Sie Ihre Funktion mit großen Eingaben.
+
+#+begin_src haskell :tangle sum.hs
+{-# LANGUAGE BangPatterns #-}
+
+sumWorst :: Int -> Int
+sumWorst 0 = 0
+sumWorst n = n + sumWorst (n - 1)
+
+sumBad :: Int -> Int
+sumBad = go 0
+  where
+    go :: Int -> Int -> Int
+    go acc 0 = acc
+    go acc n = go (acc + n) (n - 1)
+
+sumGood :: Int -> Int
+sumGood = go 0
+  where
+    go :: Int -> Int -> Int
+    go acc 0 = acc
+    go 0   n = go n (n - 1)
+    go acc n = go (acc + n) (n - 1)
+
+sumBest :: Int -> Int
+sumBest = go 0
+  where
+    go :: Int -> Int -> Int
+    go acc 0 = acc
+    go acc n = acc `seq` go (acc + n) (n - 1)
+
+sumBest' :: Int -> Int
+sumBest' = flip go 0
+  where
+    go :: Int -> Int -> Int
+    go 0 acc = acc
+    go n acc = go (n - 1) $! (acc + n)
+
+sumBang :: Int -> Int
+sumBang = go 0
+  where
+    go :: Int -> Int -> Int
+    go !acc 0 = acc
+    go !acc n = go (acc + n) (n - 1)
+#+end_src
+
+* Aufgabe 3 (Folie II/17)
+
+Erinnerung: Testen unter verschärften Speicherbedingungen:
+
+#+begin_src bash
+ghci +RTS -M64M -RTS …
+#+end_src
+
+
+** Aufgabe 3.1
+   
+Schreiben Sie die Funktion ~average~, welche den Durchschnitt
+aller Elemente einer Liste bildet. Achten Sie bei der
+Implementierung auf Speichereffizienz.
+  * Implementieren Sie die Funktion komplett selbst.
+  * Nutzen Sie statt expliziter Rekursion eine der fold-Funktionen.
+
+#+begin_src haskell :tangle average.hs
+import Data.List (foldl')
+
+averageBad :: Fractional a => [a] -> a
+averageBad xs = sum xs / fromIntegral (length xs)
+
+average :: Fractional a => [a] -> a
+average = (\ (s, c) -> s / c) . foldl' (\(s, c) a -> (s + a, c + 1)) (0,0) 
+#+end_src
+
+** Aufgabe 3.2
+
+Verbessern Sie das Speicherverhalten Ihrer ~wc~-Implementierung.
+
+#+begin_src haskell :tangle wc-optimised.hs
+main :: IO ()
+main = undefined
+#+end_src
+
+* Aufgabe 4 (Folie II/24)
+  
+Gegeben sei folgende Funktionsdefinition.
+
+#+begin_src haskell
+foobar :: Int -> Integer
+foobar n = let xs = 0 : 1 : zipWith (+) (tail xs) xs in xs !! n
+#+end_src
+
+1. Was berechnet diese Funktion?
+2. Veranschaulichen Sie sich Haskells lazy Evaluation anhand des Ausdrucks ~foobar 3~.
+3. Verläuft die Auswertung in einer günstigen Reihenfolge?
+   Wenn nicht, wie kann man eine bessere Auswertungsreihenfolge erreichen?
+4. Was ändert sich, wenn man die ursprüngliche Definition η-reduziert?
+
+* Aufgabe 5 (Folie II/31)
+
+Sei ~Tree~ der Typ aus dem Modul ~Data.Tree~. Programmieren Sie die Funktion
+
+#+begin_src haskell
+intify :: ... => [Tree a] -> ([Tree Int], [(a, Int)])
+#+end_src
+
+Die Funktion soll alle Knoten aller eingegebenen Bäume
+eineindeutig durch ~Int~'s ersetzen.  Die Zuordnung der ~Int~'s zu den
+ursprünglichen Werten soll ebenfalls ausgegeben werden.  Zum Beispiel:
+
+#+begin_src haskell
+intify [Node "a" [], Node "" [Node "a" []]]
+  = ([Node 0 [], Node 1 [Node 0 []]], [("a", 0), ("", 1)])
+#+end_src
+
+Die Funktion soll möglichst lazy arbeiten, ohne unnötig große
+Thunks aufzubauen.  Nutzen Sie den vorgegebenen Code von der Webseite, um ihre
+Implementierung zu testen.
+
+* Aufgabe 6 (TCP, Kap. 3.2)
+** Aufgabe 6.1
+
+Implement ~Functor~ instances for ~Either e~ and ~((->) e)~.
+
+#+begin_src haskell
+instance Functor (Either e) where
+  fmap _ (Left e)  = Left e
+  fmap f (Right a) = Right $ f a
+
+instance Functor ((->) e) where
+  fmap = (.)
+#+end_src
+
+** Aufgabe 6.2
+
+Implement ~Functor~ instances for ~((,) e)~ and for ~Pair~, defined as
+
+#+begin_src haskell
+instance Functor ((,) e) where
+  fmap f (e, a) = (e, f a) 
+
+data Pair a = Pair a a
+  fmap f (Pair a₁ a₂) = Pair (f a₁) (f a₂)
+#+end_src
+
+Explain their similarities and differences.
+
+** Aufgabe 6.3
+
+Implement a ~Functor~ instance for the type ~ITree~, defined as
+
+#+begin_src haskell
+data ITree a = Leaf (Int -> a) | Node [ITree a]
+
+instance Functor ITree where
+  fmap f (Leaf g)  = Leaf (f . g)
+  fmap f (Node ts) = Node $ fmap (fmap f) ts 
+#+end_src
+
+** Aufgabe 6.4
+
+Give an example of a type of kind ~* -> *~ which cannot be made an instance of ~Functor~ (without using ~undefined~).
+
+#+begin_src haskell
+newtype T a = T (a -> Int)
+#+end_src
+
+** Aufgabe 6.5
+
+Is this statement true or false?
+
+"The composition of two ~Functor~'s is also a ~Functor~."
+
+If false, give a counterexample; if true, prove it by exhibiting some appropriate Haskell code.
+
+#+begin_src haskell
+-- Let G and F be instances of Functor.
+newtype T a = T (G (F a))
+
+instance Functor T where
+  fmap = fmap . fmap  -- fmap f x = fmap (fmap f) x
+#+end_src
+
+* Aufgabe 7 (TCP, Kap. 3.3)
+** Aufgabe 7.1
+
+Although it is not possible for a ~Functor~ instance to satisfy the first ~Functor~ law but not the second (excluding ~undefined~), the reverse is possible. Give an example of a (bogus) ~Functor~ instance which satisfies the second law but not the first.
+
+#+begin_src haskell
+newtype NewList a = NewList [a]
+
+instance Functor NewList where
+  fmap _ = const (NewList [])
+#+end_src
+
+** Aufgabe 7.2
+
+Which laws are violated by the evil ~Functor~ instance for list shown above: both laws, or the first law alone? Give specific counterexamples. 
+
+#+begin_src haskell
+-- both laws
+fmap id [1] = [id 1, id 1] = [1, 1] ≠ [1] = id [1]
+fmap id $ fmap id [1] = [1, 1, 1, 1] ≠ [1, 1] = fmap (id . id) [1]
+#+end_src
+
+* Leseauftrag
+  - Literatur :: [LYaH12, Kap. 13–14], [PHfNLP15, FS III], [TCP, Abschnitt 5]
+  - Aufgaben :: [PHfNLP15, Folien III/2, III/5, III/10, III/14, III/24], [TCP, Abschnitte 5.2, 5.3]
+
+* Literatur
+  - [LYaH12] :: Miran Lipovača: Learn You a Haskell for Great Good, 2012, <http://learnyouahaskell.com/>.
+  - [PHfNLP15] :: Toni Dietze: Praktikum Haskell für NLP, Foliensatz, 2015.
+  - [TCP] :: Brent Yorgey: Typeclassopedia, <https://wiki.haskell.org/Typeclassopedia>.
