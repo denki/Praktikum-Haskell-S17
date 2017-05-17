@@ -1,0 +1,55 @@
+#+subtitle: Praktikum Haskell für NLP – Sommersemester 2017
+#+title: Abschlussaufgabe „Wortvorhersage“
+#+author: Tobias Denkinger
+#+date: 2017-05-23
+#+options: toc:nil
+#+options: num:nil
+#+language: de
+#+latex_header: \usepackage[AUTO]{babel}
+
+* Wortvorhersage
+
+Das Ziel bei der /Wortvorhersage/ ist es, ein gegebenes Präfix \(p\) eines natürlichsprachigen Satzes durch ein Wort \(w\) so zu erweitern, dass \(pw\) wieder ein Präfix eines natürlichsprachigen Satzes ist.  Um \(w\) zu finden, wird ein Sprachmodell konsultiert, z.B. ein \(n\)-Gramm-Modell oder ein Hidden-Markov-Modell.  Dabei wird \(w\) so gewählt, dass die Güte des Präfixes \(pw\) eines natürlichsprachigen Satzes unter dem Sprachmodell maximal ist.  Die Güte wird üblicherweise als Wahrscheinlichkeit ausgedrückt.  Für die praktische Anwendung (zum Beispiel während des Schreibens einer SMS-Nachricht) ist es manchmal sinnvoll, mehrere Vorschläge für das Wort \(w\) zu unterbreiten.
+
+
+* Aufgabe
+
+Implementieren Sie ein Haskellprogramm zur Wortvorhersage in Texten.  Das Programm soll eine natürliche Zahl \(k\), ein \(n\)-Gramm-Modell, eine Textdatei und eine Position in der Textdatei entgegennehmen.  Es soll dann eine Liste der besten \(k\) Worte ausgeben, die hinsichtlich des \(n\)-Gramm-Modells jeweils auf die angegebene Position im Text folgen können.  Dafür soll nur das Präfix des Texts bis zur angegebenen Position in Betracht gezogen werden.  Das \(n\)-Gramm-Modell \cite{CheGoo96} ist im /ARPA-Format/[fn:ARPA] gegeben (siehe Veranstaltungswebseite).
+
+Das Programm soll folgende Kommandozeilensyntax haben:
+#+begin_src
+NGramPredict ‹number› ‹model› ‹file› ‹line› ‹column›
+#+end_src
+Dabei ist ~NGramPredict~ der Name des Programms und die Parameter haben folgende Bedeutungen:
+  * ~‹number›~ legt die Anzahl an Wortvorschläge fest, die das Programm unterbreitet.
+  * ~‹model›~ legt den (möglicherweise relativen) Pfad zum \(n\)-Gramm-Modell fest.
+  * ~‹file›~ legt den (möglicherweise relativen) Pfad zur Datei fest, die den zu ergänzenden Text enthält.
+  * ~‹line›~ und ~‹column›~ spezifizieren die Position im Text, wobei ~‹line›~ die Zeilennummer und ~‹column›~ die Spaltennummer ist; die Zählung der Zeilen und Spalten beginnt mit 1.
+
+
+* Anforderungen
+
+An das Programm und seinen Quellcode werden folgende Anforderungen gestellt:
+  * Bei Ausführung mit fehlerhaften Kommandozeilenargumenten sollen sinnvolle Fehlermeldungen oder kurze allgemeine Benutzungshinweise ausgegeben werden.
+  * Der Quellcode soll in einem angemessenen Stil verfasst werden.
+  * Top-Level-Deklarationen sollen in Haddock-Syntax dokumentiert werden.
+  * Compilerwarnungen, die mit der Compileroption ~-Wall~[fn:Wall] ausgegeben werden, sollen behoben werden. Diese Option wird sowohl von ~ghc~ als auch von ~ghci~ unterstützt.
+  * Hinweise von ~hlint~[fn:hlint] sollen weitgehend umgesetzt werden.
+  * Das Projekt soll eine Paketbeschreibung für ~cabal~[fn:cabal] enthalten.
+    * Mittels ~cabal init~ lässt sich leicht eine Paketbeschreibung generieren.  Sollten bereits Quelldateien vorhanden sein, werden deren Abhängigkeiten beachtet.
+    * Am Ende soll sich das Projekt mit folgenden Befehlen übersetzen und ausführen lassen:
+      #+begin_src shell
+      cabal sandbox init
+      cabal install
+      cabal exec ‹executable›
+      #+end_src
+
+
+\bibliographystyle{alpha-doi}
+\bibliography{references}
+
+[fn:ARPA] [[http://www1.icsi.berkeley.edu/Speech/docs/HTKBook3.2/node213_mn.html]]
+[fn:Wall] https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using-warnings.html#ghc-flag--Wall
+[fn:hlint] https://hackage.haskell.org/package/hlint
+[fn:cabal] https://www.haskell.org/cabal/
+

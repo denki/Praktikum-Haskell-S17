@@ -1,0 +1,82 @@
+% Created 2017-05-17 Mi 08:08
+% Intended LaTeX compiler: pdflatex
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[germanb]{babel}
+\author{Tobias Denkinger}
+\date{2017-05-23}
+\title{Abschlussaufgabe „Wortvorhersage“\\\medskip
+\large Praktikum Haskell für NLP – Sommersemester 2017}
+\hypersetup{
+ pdfauthor={Tobias Denkinger},
+ pdftitle={Abschlussaufgabe „Wortvorhersage“},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.2.1 (Org mode 9.0.7)}, 
+ pdflang={Germanb}}
+\begin{document}
+
+\maketitle
+
+\section*{Wortvorhersage}
+\label{sec:orgd47786e}
+
+Das Ziel bei der \emph{Wortvorhersage} ist es, ein gegebenes Präfix \(p\) eines natürlichsprachigen Satzes durch ein Wort \(w\) so zu erweitern, dass \(pw\) wieder ein Präfix eines natürlichsprachigen Satzes ist.  Um \(w\) zu finden, wird ein Sprachmodell konsultiert, z.B. ein \(n\)-Gramm-Modell oder ein Hidden-Markov-Modell.  Dabei wird \(w\) so gewählt, dass die Güte des Präfixes \(pw\) eines natürlichsprachigen Satzes unter dem Sprachmodell maximal ist.  Die Güte wird üblicherweise als Wahrscheinlichkeit ausgedrückt.  Für die praktische Anwendung (zum Beispiel während des Schreibens einer SMS-Nachricht) ist es manchmal sinnvoll, mehrere Vorschläge für das Wort \(w\) zu unterbreiten.
+
+
+\section*{Aufgabe}
+\label{sec:org8a36f41}
+
+Implementieren Sie ein Haskellprogramm zur Wortvorhersage in Texten.  Das Programm soll eine natürliche Zahl \(k\), ein \(n\)-Gramm-Modell, eine Textdatei und eine Position in der Textdatei entgegennehmen.  Es soll dann eine Liste der besten \(k\) Worte ausgeben, die hinsichtlich des \(n\)-Gramm-Modells jeweils auf die angegebene Position im Text folgen können.  Dafür soll nur das Präfix des Texts bis zur angegebenen Position in Betracht gezogen werden.  Das \(n\)-Gramm-Modell \cite{CheGoo96} ist im \emph{ARPA-Format}\footnote{\url{http://www1.icsi.berkeley.edu/Speech/docs/HTKBook3.2/node213\_mn.html}} gegeben (siehe Veranstaltungswebseite).
+
+Das Programm soll folgende Kommandozeilensyntax haben:
+\begin{verbatim}
+NGramPredict ‹number› ‹model› ‹file› ‹line› ‹column›
+\end{verbatim}
+Dabei ist \texttt{NGramPredict} der Name des Programms und die Parameter haben folgende Bedeutungen:
+\begin{itemize}
+\item \texttt{‹number›} legt die Anzahl an Wortvorschläge fest, die das Programm unterbreitet.
+\item \texttt{‹model›} legt den (möglicherweise relativen) Pfad zum \(n\)-Gramm-Modell fest.
+\item \texttt{‹file›} legt den (möglicherweise relativen) Pfad zur Datei fest, die den zu ergänzenden Text enthält.
+\item \texttt{‹line›} und \texttt{‹column›} spezifizieren die Position im Text, wobei \texttt{‹line›} die Zeilennummer und \texttt{‹column›} die Spaltennummer ist; die Zählung der Zeilen und Spalten beginnt mit 1.
+\end{itemize}
+
+
+\section*{Anforderungen}
+\label{sec:org025f859}
+
+An das Programm und seinen Quellcode werden folgende Anforderungen gestellt:
+\begin{itemize}
+\item Bei Ausführung mit fehlerhaften Kommandozeilenargumenten sollen sinnvolle Fehlermeldungen oder kurze allgemeine Benutzungshinweise ausgegeben werden.
+\item Der Quellcode soll in einem angemessenen Stil verfasst werden.
+\item Top-Level-Deklarationen sollen in Haddock-Syntax dokumentiert werden.
+\item Compilerwarnungen, die mit der Compileroption \texttt{-Wall}\footnote{\url{https://downloads.haskell.org/\~ghc/latest/docs/html/users\_guide/using-warnings.html\#ghc-flag--Wall}} ausgegeben werden, sollen behoben werden. Diese Option wird sowohl von \texttt{ghc} als auch von \texttt{ghci} unterstützt.
+\item Hinweise von \texttt{hlint}\footnote{\url{https://hackage.haskell.org/package/hlint}} sollen weitgehend umgesetzt werden.
+\item Das Projekt soll eine Paketbeschreibung für \texttt{cabal}\footnote{\url{https://www.haskell.org/cabal/}} enthalten.
+\begin{itemize}
+\item Mittels \texttt{cabal init} lässt sich leicht eine Paketbeschreibung generieren.  Sollten bereits Quelldateien vorhanden sein, werden deren Abhängigkeiten beachtet.
+\item Am Ende soll sich das Projekt mit folgenden Befehlen übersetzen und ausführen lassen:
+\begin{verbatim}
+cabal sandbox init
+cabal install
+cabal exec ‹executable›
+\end{verbatim}
+\end{itemize}
+\end{itemize}
+
+
+\bibliographystyle{alpha-doi}
+\bibliography{references}
+\end{document}

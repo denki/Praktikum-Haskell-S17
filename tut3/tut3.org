@@ -60,7 +60,7 @@ monadische Berechnung ~m~ genau ~n~-mal hintereinander
 ausführt, z. B. ~powerM m 3 = \ x -> m x >>= m >>= m~.
 Welchen Typ hat ~powerM~?
 
-#+begin_src haskell :tangle Genealogy.hs
+#+begin_src haskell
 powerM1 :: Monad m => (a -> m a) -> Int -> a -> m a
 powerM1 _ 0 = return
 powerM1 m n = \x -> m x >>= powerM1 m (n - 1)
